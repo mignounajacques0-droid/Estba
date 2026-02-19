@@ -1,18 +1,26 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Sélectionne le bouton du menu hamburger
     const navToggle = document.querySelector('.nav-toggle');
-    // Sélectionne le menu de navigation complet
     const mainNav = document.querySelector('.main-nav');
+    // On sélectionne maintenant tous les liens à l'intérieur du menu de navigation
+    const navLinks = document.querySelectorAll('.main-nav ul li a');
 
-    // Vérifie si les éléments existent avant d'ajouter l'écouteur d'événement
     if (navToggle && mainNav) {
-        // Ajoute un écouteur d'événement pour le clic sur le bouton
+        // Logique pour le clic sur le bouton hamburger
         navToggle.addEventListener('click', function() {
-            // Bascule la classe 'active' sur le menu de navigation
-            // et sur le bouton hamburger pour l'animation (X)
             mainNav.classList.toggle('active');
-            navToggle.classList.toggle('open'); // Ceci ajoute/retire la classe 'open' au bouton nav-toggle
+            navToggle.classList.toggle('open');
+        });
+
+        // Nouvelle logique : Fermer le menu quand un lien est cliqué
+        navLinks.forEach(link => { // Pour chaque lien du menu
+            link.addEventListener('click', function() {
+                // Si le menu est ouvert (a la classe 'active'), on le ferme
+                if (mainNav.classList.contains('active')) {
+                    mainNav.classList.remove('active');
+                    navToggle.classList.remove('open'); // On remet aussi le bouton hamburger à son état initial
+                }
+                // Ici, le comportement par défaut du lien (scroll vers l'ancre) se produira
+            });
         });
     }
 });
-

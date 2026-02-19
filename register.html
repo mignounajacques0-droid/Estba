@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inscription - ESTBA</title>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+  /* Styles spécifiques pour les pages d'authentification */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--light-color); /* Utilise la couleur de fond du site */
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('image/auth_background.jpg') no-repeat center center/cover; /* Image de fond */
+  color: var(--text-color);
+  margin: 0;
+}
+
+.auth-container {
+  background: rgba(255, 255, 255, 0.95); /* Fond blanc semi-transparent */
+  padding: 40px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.auth-container h2 {
+  color: var(--primary-color);
+  margin-bottom: 30px;
+  font-size: 2.2rem;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: var(--dark-color);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ced4da;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.form-group input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem rgba(46, 139, 87, 0.25); /* Ombre de la couleur principale */
+  outline: none;
+}
+
+.auth-container.btn-submit {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.1rem;
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background var(--transition-speed), transform var(--transition-speed);
+}
+
+.auth-container.btn-submit:hover {
+  background: #216d40;
+  transform: translateY(-2px);
+}
+
+.auth-container p {
+  margin-top: 25px;
+  font-size: 0.95rem;
+}
+
+.auth-container p a {
+  font-weight: bold;
+}
+
+/* Style du bouton Google */
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px; /* Ajouté pour espace si le bouton est en dehors de la div g_id_signin */
+  background-color: #4285F4; /* Couleur Google Blue */
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color var(--transition-speed);
+}
+.google-btn:hover {
+  background-color: #357ae8;
+}
+.google-btn.fab.fa-google { /* C'est pour l'icône, si tu en ajoutes une manuellement */
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+.divider {
+  margin: 30px 0;
+  position: relative;
+  text-align: center;
+}
+.divider::before,.divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background: #ccc;
+}
+.divider::before { left: 0; }
+.divider::after { right: 0; }
+.divider span {
+  background: rgba(255, 255, 255, 0.95); /* Pour que le "ou" soit lisible sur le trait */
+  padding: 0 10px;
+  color: #6c757d;
+}
+    /* Styles communs aux pages auth, voir la section 3 */
+  </style>
+  <!-- Script Google Sign-In -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Pas de vérification de session ici, l'objectif est l'inscription.
+      const registerForm = document.getElementById('registerForm');
+      if (registerForm) {
+        registerForm.addEventListener('submit', function(event) {
+          event.preventDefault(); // Empêche la soumission par défaut
+          // Ici, tu enverrais les données à ton back-end via fetch()
+          // Si le back-end répond succès:
+          alert('Inscription réussie! Veuillez vous connecter.');
+          window.location.href = 'login.html'; // Rediriger vers la page de connexion
+          // Sinon, afficher un message d'erreur
+        });
+      }
+    });
+
+    function handleCredentialResponse(response) {
+      const responsePayload = decodeJwtResponse(response.credential);
+      console.log("Email (Google): " + responsePayload.email);
+
+      // Envoyer ce "response.credential" au back-end pour créer le compte utilisateur
+      fetch('/api/google-register', { // A remplacer par ton endpoint back-end
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: response.credential }),
+      })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+          alert('Inscription Google réussie! Veuillez vous connecter.');
+          window.location.href = 'login.html'; // Rediriger vers la page de connexion
+        } else {
+          alert('Erreur lors de l\'inscription Google : ' + (data.message || 'Veuillez réessayer.'));
+        }
+      })
+    .catch(err => {
+        console.error('Erreur lors de l\'envoi du token Google:', err);
+        alert('Inscription Google impossible. Veuillez réessayer.');
+      });
+    }
+
+    function decodeJwtResponse(token) { /*... (Fonction identique)... */
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+      return JSON.parse(jsonPayload);
+    }
+  </script>
+</head>
+<body>
+
+  <div class="auth-container">
+    <h2><i class="fas fa-user-plus"></i> Inscription</h2>
+
+    <div id="g_id_onload"
+         data-client_id="16268465496-rlt0s1bahchf4nvfnmkgdbgor84gp1ct.apps.googleusercontent.com"
+         data-context="signup"
+         data-ux_mode="popup"
+         data-callback="handleCredentialResponse"
+         data-auto_prompt="false">
+    </div>
+
+    <div class="g_id_signin"
+         data-type="standard"
+         data-size="large"
+         data-theme="outline"
+         data-text="signup_with"
+         data-shape="rectangular"
+         data-logo_alignment="left">
+    </div>
+
+    <div class="divider"><span>ou</span></div>
+
+    <form action="/api/register" method="POST" id="registerForm"> <!-- Remplacer /api/register par ton endpoint -->
+      <div class="form-group">
+        <label for="fullname">Nom Complet</label>
+        <input type="text" id="fullname" name="fullname" placeholder="Votre nom complet" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Adresse Email</label>
+        <input type="email" id="email" name="email" placeholder="votre.email@ul.tg" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" name="password" placeholder="Minimum 6 caractères" required>
+      </div>
+      <div class="form-group">
+        <label for="confirm-password">Confirmer le mot de passe</label>
+        <input type="password" id="confirm-password" name="confirm_password" placeholder="Confirmer votre mot de passe" required>
+      </div>
+      <button type="submit" class="btn-submit">S'inscrire</button>
+    </form>
+    <p>Déjà un compte? <a href="login.html">Connectez-vous ici</a></p>
+  </div>
+
+</body>
+</html>

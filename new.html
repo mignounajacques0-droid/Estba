@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bienvenue - ESTBA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/style.css">
+  <style>
+    /* Styles spécifiques pour cette page d'accueil stricte */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('image/accueil_estba_background.jpg') no-repeat center center/cover;
+      background-size: cover;
+      color: #fff;
+      text-align: center;
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+    }
+
+   .welcome-container {
+      background: rgba(0, 0, 0, 0.75);
+      padding: 50px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      max-width: 600px;
+      width: 90%;
+      animation: fadeIn 1s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+   .welcome-container h1 {
+      color: #fff;
+      font-size: 3.2rem;
+      margin-bottom: 20px;
+      font-family: 'Oswald', sans-serif;
+    }
+
+   .welcome-container p {
+      font-size: 1.1rem;
+      margin-bottom: 40px;
+      line-height: 1.6;
+    }
+
+   .welcome-container.btn {
+      padding: 15px 30px;
+      font-size: 1.1rem;
+      border-radius: 50px;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="welcome-container">
+    <h1>Accédez à votre espace ESTBA</h1>
+    <p>Pour consulter les actualités, formations et ressources de l'ESTBA, veuillez vous connecter ou créer un compte.</p>
+    <a href="login.html" class="btn btn-primary">Se connecter</a>
+    <a href="register.html" class="btn btn-secondary">Créer un compte</a>
+  </div>
+
+</body>
+</html>

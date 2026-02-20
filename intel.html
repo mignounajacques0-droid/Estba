@@ -5,145 +5,436 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Détails Actualité | ESTBA</title>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <!-- Tu peux ajouter ici d'autres styles spécifiques si tu le souhaites pour cette page -->
+
   <style>
-  /* Styles pour la page de détails des actualités */
-.detail-hero {
-    background-size: cover;
-    background-position: center center;
-    color: #fff;
-    text-align: center;
-    padding: 100px 20px 50px;
-    min-height: 40vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
+    /* VARIABLES GLOBALES (tu peux les définir ici si tu ne veux pas de style.css) */
+    :root {
+      --primary-color: #004080; /* Bleu foncé */
+      --secondary-color: #F7DC6F; /* Jaune clair */
+      --accent-color: #E74C3C; /* Rouge vif */
+      --text-color: #333;
+      --light-color: #f8f9fa;
+      --dark-color: #343a40;
+      --border-radius: 8px;
+      --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      --font-family-header: 'Oswald', sans-serif;
+      --font-family-body: 'Roboto', sans-serif;
+    }
 
-.detail-hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7); /* Overlay sombre pour la lisibilité du texte */
-    z-index: 1;
-}
+    /* Styles généraux du body, etc. (peuvent venir de ton style.css) */
+    body {
+      font-family: var(--font-family-body);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background-color: var(--light-color);
+      color: var(--text-color);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
 
-.detail-hero .container {
-    z-index: 2;
-}
+    /* Pour empêcher le défilement du body lorsque le menu mobile est ouvert */
+    body.no-scroll {
+      overflow: hidden;
+    }
 
-.detail-hero h1 {
-    color: #fff;
-    font-size: 3rem;
-    margin-bottom: 15px;
-}
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
 
-.detail-hero .news-date {
-    font-size: 1.2rem;
-    color: rgba(255, 255, 255, 0.8);
-}
+    /* Styles des boutons (peuvent venir de ton style.css) */
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: var(--border-radius);
+      text-decoration: none;
+      font-weight: 700;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
 
-.news-detail-content {
-    padding: 80px 0;
-    background-color: var(--light-color);
-}
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: #fff;
+    }
 
-.news-detail-content .container {
-    max-width: 900px; /* Largeur max pour le contenu de l'article */
-    text-align: left;
-}
+    .btn-primary:hover {
+      background-color: #003366; /* Un peu plus foncé */
+      transform: translateY(-2px);
+    }
 
-.news-detail-content p {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    margin-bottom: 25px;
-    color: var(--text-color);
-}
+    .btn-secondary {
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+    }
 
-.news-detail-content .detail-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-    margin: 30px 0;
-    display: block; /* Pour centrer si besoin */
-    margin-left: auto;
-    margin-right: auto;
-}
+    .btn-secondary:hover {
+      background-color: #e5c05c;
+      transform: translateY(-2px);
+    }
 
-.news-detail-content .back-button {
-    margin-top: 40px;
-    display: inline-flex; /* Pour aligner l'icône et le texte */
-    align-items: center;
-}
+    /* Styles du HEADER PRINCIPAL */
+    .main-header {
+      background-color: white; /* Fond blanc comme sur l'image */
+      padding: 10px 0;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      position: relative;
+      z-index: 100; /* Assure qu'il est au-dessus du contenu */
+    }
 
-.news-detail-content .back-button i {
-    margin-right: 10px;
-}
+    .main-header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: nowrap; /* Pas de wrap sur desktop */
+    }
 
-/* Responsive pour la page de détails */
-    /* Ajustements pour le menu mobile (hamburger) */
-                 display: block;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 70px; /* Même hauteur que ton header principal */
-            background-color: var(--primary-color); /* Couleur du fond de l'en-tête */
-            z-index: 10;
+    .main-header .logo img {
+      height: 60px; /* Taille du logo */
+      width: auto;
+    }
+
+    /* NAVIGATION DESKTOP */
+    .main-nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 30px;
+    }
+
+    .main-nav ul li a {
+      text-decoration: none;
+      color: var(--text-color);
+      font-weight: 500;
+      padding: 5px 0;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .main-nav ul li a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0;
+      height: 2px;
+      background-color: var(--accent-color);
+      transition: width 0.3s ease;
+    }
+
+    .main-nav ul li a:hover::after,
+    .main-nav ul li a.active::after {
+      width: 100%;
+    }
+    
+    .main-nav ul li a:hover,
+    .main-nav ul li a.active {
+      color: var(--primary-color);
+    }
+
+    /* BOUTON HAMBURGER (caché sur desktop) */
+    .nav-toggle {
+      display: none; /* Caché par défaut sur desktop */
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 10px;
+      position: relative;
+      z-index: 1100; /* Sera ajusté sur mobile */
+    }
+
+    .nav-toggle .hamburger {
+      display: block;
+      width: 30px;
+      height: 3px;
+      background-color: var(--text-color);
+      border-radius: 2px;
+      position: relative;
+      transition: background-color 0.3s ease;
+    }
+
+    .nav-toggle .hamburger::before,
+    .nav-toggle .hamburger::after {
+      content: '';
+      display: block;
+      width: 30px;
+      height: 3px;
+      background-color: var(--text-color);
+      border-radius: 2px;
+      position: absolute;
+      left: 0;
+      transition: transform 0.3s ease;
+    }
+
+    .nav-toggle .hamburger::before {
+      top: -10px;
+    }
+
+    .nav-toggle .hamburger::after {
+      top: 10px;
+    }
+
+    .nav-toggle.active .hamburger {
+      background-color: transparent;
+    }
+
+    .nav-toggle.active .hamburger::before {
+      transform: translateY(10px) rotate(45deg);
+    }
+
+    .nav-toggle.active .hamburger::after {
+      transform: translateY(-10px) rotate(-45deg);
+    }
+
+    /* --- SECTION MOBILE (MEDIA QUERY) --- */
+    @media (max-width: 768px) {
+      .main-header .container {
+        flex-wrap: wrap; /* Permet aux éléments de passer à la ligne */
+        justify-content: space-between; /* Aligne le logo et le toggle */
+        align-items: center; /* Centre verticalement */
+      }
+
+      .main-header .logo {
+        order: 1; /* Le logo apparaît en premier */
+        flex-grow: 1; /* Prend l'espace disponible */
+        text-align: left; /* Aligne le logo à gauche */
+        padding-left: 10px; /* Petit décalage pour l'esthétique */
+      }
+
+      .main-header .nav-toggle {
+        display: block; /* Affiche le bouton hamburger sur mobile */
+        order: 2; /* Le toggle apparaît après le logo */
+        z-index: 1100; /* TRÈS IMPORTANT : Doit être le plus élevé pour toujours être cliquable */
+        margin-right: 10px; /* Petit décalage pour l'esthétique */
+        position: relative; /* Nécessaire pour que le z-index fonctionne */
+      }
+
+      .main-nav {
+        position: fixed; /* Reste fixe par rapport à la fenêtre */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh; /* Pleine hauteur de la vue */
+        background-color: var(--dark-color); /* Utilise ta couleur sombre principale */
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 80px 20px 20px; /* Espace pour le header fictif ou le contenu. Ajuste 80px si ton header est plus haut/bas */
+        transform: translateX(-100%); /* Masqué par défaut à gauche */
+        transition: transform 0.3s ease-out;
+        z-index: 1000; /* TRÈS IMPORTANT : Doit être au-dessus de tout le contenu du site (qui est généralement à z-index: 1 ou auto) */
+        overflow-y: auto;
+        display: flex;
+        align-items: center;
+      }
+
+      .main-nav.active {
+        transform: translateX(0); /* Visible quand actif */
+        box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+      }
+
+      /* Styles du menu mobile */
+      .main-nav ul {
+        flex-direction: column; /* Les éléments de liste s'empilent */
+        width: 100%; /* Prend toute la largeur disponible dans le menu */
+        text-align: center; /* Centre le texte des liens */
+        margin-top: 50px; /* Espace entre le haut du menu et le premier lien */
+      }
+
+      .main-nav ul li {
+        margin: 20px 0; /* Plus d'espace entre les liens verticaux */
+      }
+
+      .main-nav ul li a {
+        font-size: 1.8rem; /* Plus grande taille pour les liens du menu mobile */
+        color: var(--light-color); /* Couleur claire pour le texte sur fond sombre */
+        padding: 10px 0;
+        display: block; /* Pour que le padding s'applique bien */
+      }
+
+      /* Style de la barre active du menu mobile */
+      .main-nav ul li a.active::after,
+      .main-nav ul li a:hover::after {
+        width: 50%; /* La barre fait la moitié de la largeur du lien */
+        left: 25%; /* Centre la barre */
+        background-color: var(--accent-color); /* Une couleur d'accent pour la barre */
+      }
+
+      /* Ajout d'un "faux" header dans le menu mobile pour le logo */
+      .main-nav::before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 70px; /* Hauteur de ton header principal */
+        background-color: var(--primary-color); /* Couleur du fond de l'en-tête */
+        z-index: 1; /* Il sera derrière le logo mobile */
+      }
+
+      .main-nav .logo-mobile {
+        display: none; /* Caché par défaut */
+        position: absolute;
+        top: 10px; /* Ajuste la position verticale pour correspondre à ton header */
+        left: 20px; /* Ajuste la position horizontale */
+        z-index: 2; /* Au-dessus du pseudo-élément ::before */
+      }
+
+      .main-nav.active .logo-mobile {
+        display: block; /* Visible lorsque le menu est actif */
+      }
+
+      .main-nav .logo-mobile img {
+        height: 50px; /* Ajuste la taille du logo dans le menu mobile */
+        width: auto;
+      }
+    }
+
+    /* Styles pour la page de détails des actualités */
+    .detail-hero {
+        background-size: cover;
+        background-position: center center;
+        color: #fff;
+        text-align: center;
+        padding: 100px 20px 50px;
+        min-height: 40vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+    .detail-hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7); /* Overlay sombre pour la lisibilité du texte */
+        z-index: 1;
+    }
+
+    .detail-hero .container {
+        z-index: 2;
+    }
+
+    .detail-hero h1 {
+        color: #fff;
+        font-size: 3rem;
+        margin-bottom: 15px;
+    }
+
+    .detail-hero .news-date {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .news-detail-content {
+        padding: 80px 0;
+        background-color: var(--light-color);
+    }
+
+    .news-detail-content .container {
+        max-width: 900px; /* Largeur max pour le contenu de l'article */
+        text-align: left;
+    }
+
+    .news-detail-content p {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        margin-bottom: 25px;
+        color: var(--text-color);
+    }
+
+    .news-detail-content .detail-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        margin: 30px auto;
+        display: block; /* Pour centrer si besoin */
+        object-fit: cover; /* Assure que l'image couvre bien la zone sans déformation */
+    }
+
+    .news-detail-content .back-button {
+        margin-top: 40px;
+        display: inline-flex; /* Pour aligner l'icône et le texte */
+        align-items: center;
+    }
+
+    .news-detail-content .back-button i {
+        margin-right: 10px;
+    }
+
+    /* Responsive pour la page de détails */
+    @media (max-width: 768px) {
+        .detail-hero h1 {
+            font-size: 2rem;
         }
-
-        .main-nav .logo-mobile { /* On va créer ce logo-mobile en JS */
-            display: none; /* Caché par défaut */
-            position: absolute;
-            top: 10px; /* Ajuste la position verticale */
-            left: 20px; /* Ajuste la position horizontale */
-            z-index: 11;
-        }
-
-        .main-nav.active .logo-mobile {
-            display: block; /* Visible lorsque le menu est actif */
-        }
-
-        .main-nav .logo-mobile img {
-            height: 50px; /* Ajuste la taille du logo dans le menu mobile */
-            width: auto;
+        .news-detail-content p {
+            font-size: 1rem;
         }
     }
-      /* Pour empêcher le défilement du body lorsque le menu mobile est ouvert */
-    body.no-scroll {
-        overflow: hidden;
+
+    /* Styles du footer (peuvent venir de ton style.css) */
+    .main-footer {
+      background-color: var(--dark-color);
+      color: #fff;
+      padding: 40px 0;
+      text-align: center;
+    }
+
+    .main-footer .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .main-footer p {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    .social-links a {
+      color: #fff;
+      font-size: 1.5rem;
+      margin: 0 10px;
+      transition: color 0.3s ease;
+    }
+
+    .social-links a:hover {
+      color: var(--accent-color);
     }
   </style>
 </head>
 <body>
-    <header class="main-header">
-      <div class="container">
-        <div class="logo">
-          <img src="fond.jpeg" alt="Logo ESTBA Université de Lomé">
-        </div>
-        <nav class="main-nav">
-          <ul>
-            <li><a href="index.html#accueil">Accueil</a></li>
-            <li><a href="index.html#actus" class="active">Actualités & Événements</a></li> <!-- AJOUT DE class="active" ICI -->
-            <li><a href="index.html#formations">Nos Formations</a></li>
-            <li><a href="index.html#recherche">Recherche & Innovation</a></li>
-            <li><a href="index.html#calendrier">Calendrier Académique</a></li>
-            <li><a href="index.html#contact">Contact</a></li>
-          </ul>
-        </nav>
-        <button class="nav-toggle" aria-label="Toggle navigation">
-          <span class="hamburger"></span>
-        </button>
+
+  <header class="main-header">
+    <div class="container">
+      <div class="logo">
+        <img src="fond.jpeg" alt="Logo ESTBA Université de Lomé">
       </div>
-    </header>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html#accueil">Accueil</a></li>
+          <li><a href="index.html#actus" class="active">Actualités & Événements</a></li>
+          <li><a href="index.html#formations">Nos Formations</a></li>
+          <li><a href="index.html#recherche">Recherche & Innovation</a></li>
+          <li><a href="index.html#calendrier">Calendrier Académique</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span class="hamburger"></span>
+      </button>
+    </div>
+  </header>
 
   <main>
     <section class="detail-hero" style="background-image: url('image/estba_hero_placeholder.jpg');">
@@ -157,13 +448,14 @@
       <div class="container">
         <div class="detail-text">
           
-          <img src="ambi.jpg" alt="Ambiance de la James Party" class="detail-image">
-          <p>⛱️🏖️*Détente ESTBA*🏖️🏖️🏖️
+          <img src="image/folie.webp" alt="Ambiance de la James Party" class="detail-image">
+          <p>
+            ⛱️🏖️*Détente ESTBA*🏖️🏖️🏖️
 Une sortie avec l'accompagnement du prof KANDONOU. Wow des jeux🎮🎮, baignade🏊👙 et fou rire nous attendent ce 27/02. Une surprise 🎁 attend les 20 première personne qui vont s'inscrire😅😅. Les frais de participation sont seulement à *3500fcfa* 💵💸.
 *On ne tente pas le diable👿😈* 🔥🔥🔥🔥
           </p>
           <a href="index.html#actus" class="btn btn-primary back-button">
-            <i class="fas fa-arrow-left"></i> Retour a l'accuei
+            <i class="fas fa-arrow-left"></i> Retour aux Actualités
           </a>
         </div>
       </div>
@@ -183,6 +475,65 @@ Une sortie avec l'accompagnement du prof KANDONOU. Wow des jeux🎮🎮, baignad
 
   <!-- Intégration de ScrollReveal (si tu veux des animations sur la page de détail) -->
   <script src="https://unpkg.com/scrollreveal"></script>
-  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const navToggle = document.querySelector('.nav-toggle');
+        const mainNav = document.querySelector('.main-nav');
+        const mainHeader = document.querySelector('.main-header'); // Pour récupérer le logo original
+
+        // Créer un élément pour le logo mobile si ce n'est pas déjà fait
+        let mobileLogo = document.querySelector('.main-nav .logo-mobile');
+        if (!mobileLogo) {
+            mobileLogo = document.createElement('div');
+            mobileLogo.classList.add('logo-mobile');
+            // Cloner le contenu du logo original pour le menu mobile
+            const originalLogo = mainHeader.querySelector('.logo img');
+            if (originalLogo) {
+                const clonedLogo = originalLogo.cloneNode(true);
+                mobileLogo.appendChild(clonedLogo);
+            }
+            mainNav.prepend(mobileLogo); // Insérer le logo au début du menu mobile
+        }
+
+        navToggle.addEventListener('click', function() {
+            mainNav.classList.toggle('active');
+            navToggle.classList.toggle('active'); // Pour animer l'icône hamburger
+            document.body.classList.toggle('no-scroll'); // Empêche le défilement du body
+            // Gérer la visibilité du logo mobile
+            if (mainNav.classList.contains('active')) {
+                mobileLogo.style.display = 'block';
+            } else {
+                mobileLogo.style.display = 'none';
+            }
+        });
+
+        // Fermer le menu si on clique sur un lien (pour les SPA)
+        mainNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mainNav.classList.remove('active');
+                navToggle.classList.remove('active');
+                document.body.classList.remove('no-scroll');
+                mobileLogo.style.display = 'none';
+            });
+        });
+
+        // Initialisation de ScrollReveal si tu l'utilises
+        if (typeof ScrollReveal !== 'undefined') {
+          ScrollReveal().reveal('.info-section', {
+            delay: 200,
+            distance: '50px',
+            origin: 'bottom',
+            interval: 100
+          });
+          ScrollReveal().reveal('.news-card, .formation-card', {
+            delay: 200,
+            distance: '30px',
+            origin: 'bottom',
+            interval: 100
+          });
+        }
+    });
+  </script>
 </body>
 </html>
+  

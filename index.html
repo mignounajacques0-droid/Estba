@@ -764,16 +764,32 @@ section .intro-text {
     height: 300px;
   }
 }
-  .goo{
-  width: 320px;
-}
-.goe{
-  width: 315px;
-  height: 75vh;
-}
-.goa{
-  width: 310px;
-}
+      /* Remplacer/Modifier ces règles pour les images spécifiques */
+    .goo, .goe, .goa {
+        width: 100%;             /* L'image prend 100% de la largeur de son conteneur */
+        max-width: 900px;        /* Limite la largeur maximale sur les grands écrans pour éviter qu'elles soient trop étendues. Ajuste cette valeur si tu veux qu'elles soient plus grandes ou plus petites. */
+        height: auto;            /* Maintient le ratio d'aspect de l'image pour éviter la déformation */
+        display: block;          /* Rend l'image un élément de bloc pour pouvoir la centrer */
+        margin: 40px auto;       /* Centre l'image horizontalement et ajoute de l'espace vertical */
+        object-fit: cover;       /* TRÈS IMPORTANT : Recadre l'image pour couvrir l'espace alloué sans la déformer. Les parties superflues sont coupées. */
+        object-position: center; /* Centre le contenu de l'image à l'intérieur de son cadre */
+        border-radius: var(--border-radius); /* Pour un joli coin arrondi */
+        box-shadow: var(--box-shadow);       /* Pour une petite ombre */
+    }
+
+    /* Tu peux ajouter des spécificités si certaines images ont besoin d'une hauteur minimale */
+    /* Par exemple, pour 'goe' si tu veux qu'elle soit toujours visible sur une certaine hauteur */
+    .goe {
+        min-height: 400px; /* Exemple : assure une hauteur minimale même si le contenu est plus petit */
+    }
+
+    /* Media queries pour ajuster encore plus sur mobile si nécessaire */
+    @media (max-width: 768px) {
+        .goo, .goe, .goa {
+            margin: 20px auto; /* Moins d'espace vertical sur mobile */
+            min-height: 250px; /* Exemple de hauteur minimale sur mobile */
+        }
+    }
        /* Accessibilité - Focus Visible */
     :focus-visible {
         outline: 2px solid var(--secondary-color);

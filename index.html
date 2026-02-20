@@ -7,7 +7,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+     <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- Si ton favicon est un PNG, utilise : <link rel="icon" href="favicon.png" type="image/png"> -->
   <style>
+       body.no-scroll {
+        overflow: hidden;
+    }
   /* Variables CSS pour faciliter les modifications */
 :root {
   --primary-color: #2e8b57; /* Un vert plus institutionnel et lié à la nature/biologie */
@@ -666,6 +671,41 @@ section .intro-text {
 .goa{
   width: 310px;
 }
+       /* Accessibilité - Focus Visible */
+    :focus-visible {
+        outline: 2px solid var(--secondary-color);
+        outline-offset: 3px;
+        border-radius: 3px;
+    }
+    :focus:not(:focus-visible) {
+        outline: none;
+    }
+       /* Style pour le bouton "Back to Top" */
+    #back-to-top {
+        display: none; /* Caché par défaut, sera affiché via JS */
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: var(--primary-color);
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        line-height: 50px; /* Centrage vertical du texte */
+        font-size: 24px;
+        text-decoration: none;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        transition: background-color var(--transition-speed), transform var(--transition-speed);
+        z-index: 1000;
+        cursor: pointer;
+    }
+
+    #back-to-top:hover {
+        background-color: var(--secondary-color);
+        transform: translateY(-3px);
+    }
   </style>
 </head>
 <body>
@@ -811,7 +851,7 @@ section .intro-text {
       </div>
     </section>
   </main>
-
+    
   <footer class="main-footer">
     <div class="container">
       <p>&copy; 2026 ESTBA - Université de Lomé. Tous droits réservés.</p>
@@ -822,7 +862,9 @@ section .intro-text {
       </div>
     </div>
   </footer>
+     <script src="https://unpkg.com/scrollreveal"></script>
 
   <script src="script.js"></script>
+     <a href="#accueil" id="back-to-top" title="Retour en haut de page">↑</a>
 </body>
 </html>

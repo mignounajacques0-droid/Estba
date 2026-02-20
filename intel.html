@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Détails Actualité | ESTBA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <!-- Tu peux ajouter ici d'autres styles spécifiques si tu le souhaites pour cette page -->
+  <style>
+  /* Styles pour la page de détails des actualités */
+.detail-hero {
+    background-size: cover;
+    background-position: center center;
+    color: #fff;
+    text-align: center;
+    padding: 100px 20px 50px;
+    min-height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.detail-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Overlay sombre pour la lisibilité du texte */
+    z-index: 1;
+}
+
+.detail-hero .container {
+    z-index: 2;
+}
+
+.detail-hero h1 {
+    color: #fff;
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.detail-hero .news-date {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.news-detail-content {
+    padding: 80px 0;
+    background-color: var(--light-color);
+}
+
+.news-detail-content .container {
+    max-width: 900px; /* Largeur max pour le contenu de l'article */
+    text-align: left;
+}
+
+.news-detail-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 25px;
+    color: var(--text-color);
+}
+
+.news-detail-content .detail-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin: 30px 0;
+    display: block; /* Pour centrer si besoin */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.news-detail-content .back-button {
+    margin-top: 40px;
+    display: inline-flex; /* Pour aligner l'icône et le texte */
+    align-items: center;
+}
+
+.news-detail-content .back-button i {
+    margin-right: 10px;
+}
+
+/* Responsive pour la page de détails */
+    /* Ajustements pour le menu mobile (hamburger) */
+    @media (max-width: 768px) {
+        .main-header .container {
+            flex-wrap: wrap; /* Permet aux éléments de passer à la ligne */
+            justify-content: space-between; /* Aligne le logo et le toggle */
+            align-items: center; /* Centre verticalement */
+        }
+
+        .main-header .logo {
+            order: 1; /* Le logo apparaît en premier */
+            flex-grow: 1; /* Prend l'espace disponible */
+            text-align: left; /* Aligne le logo à gauche */
+            padding-left: 10px; /* Petit décalage pour l'esthétique */
+        }
+
+        .main-header .nav-toggle {
+            display: block; /* Affiche le bouton hamburger sur mobile */
+            order: 2; /* Le toggle apparaît après le logo */
+            z-index: 1000; /* S'assure qu'il est au-dessus du menu */
+            margin-right: 10px; /* Petit décalage pour l'esthétique */
+        }
+
+        .main-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh; /* Pleine hauteur de la vue */
+            background-color: var(--dark-color); /* Fond du menu : utilise ta couleur sombre principale */
+            flex-direction: column; /* Les liens s'empilent verticalement */
+            justify-content: flex-start; /* Aligne le contenu en haut */
+            padding: 80px 20px 20px; /* Espace pour le header fictif ou le contenu */
+            transform: translateX(100%); /* Masqué par défaut à droite */
+            transition: transform 0.3s ease-out;
+            z-index: 999;
+            overflow-y: auto; /* Permet de scroller si les liens sont trop nombreux */
+            display: flex; /* Assure que le flexbox fonctionne */
+            align-items: center; /* Centre les liens horizontalement */
+        }
+
+        .main-nav.active {
+            transform: translateX(0); /* Visible quand actif */
+        }
+
+        .main-nav ul {
+            flex-direction: column; /* Les éléments de liste s'empilent */
+            width: 100%; /* Prend toute la largeur disponible dans le menu */
+            text-align: center; /* Centre le texte des liens */
+            margin-top: 50px; /* Espace entre le haut du menu et le premier lien */
+        }
+
+        .main-nav ul li {
+            margin: 20px 0; /* Plus d'espace entre les liens verticaux */
+        }
+
+        .main-nav ul li a {
+            font-size: 1.8rem; /* Plus grande taille pour les liens du menu mobile */
+            color: var(--light-color); /* Couleur claire pour le texte sur fond sombre */
+            padding: 10px 0;
+            display: block; /* Pour que le padding s'applique bien */
+        }
+
+        /* Style de la barre active du menu mobile */
+        .main-nav ul li a.active::after,
+        .main-nav ul li a:hover::after {
+            width: 50%; /* La barre fait la moitié de la largeur du lien */
+            left: 25%; /* Centre la barre */
+            background-color: var(--accent-color); /* Une couleur d'accent pour la barre */
+        }
+
+        /* Ajout d'un "faux" header dans le menu mobile pour le logo */
+        .main-nav::before {
+            content: ''; /* Vide, juste pour la structure */
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px; /* Même hauteur que ton header principal */
+            background-color: var(--primary-color); /* Couleur du fond de l'en-tête */
+            z-index: 10;
+        }
+
+        .main-nav .logo-mobile { /* On va créer ce logo-mobile en JS */
+            display: none; /* Caché par défaut */
+            position: absolute;
+            top: 10px; /* Ajuste la position verticale */
+            left: 20px; /* Ajuste la position horizontale */
+            z-index: 11;
+        }
+
+        .main-nav.active .logo-mobile {
+            display: block; /* Visible lorsque le menu est actif */
+        }
+
+        .main-nav .logo-mobile img {
+            height: 50px; /* Ajuste la taille du logo dans le menu mobile */
+            width: auto;
+        }
+    }
+      /* Pour empêcher le défilement du body lorsque le menu mobile est ouvert */
+    body.no-scroll {
+        overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+    <header class="main-header">
+      <div class="container">
+        <div class="logo">
+          <img src="fond.jpeg" alt="Logo ESTBA Université de Lomé">
+        </div>
+        <nav class="main-nav">
+          <ul>
+            <li><a href="index.html#accueil">Accueil</a></li>
+            <li><a href="index.html#actus" class="active">Actualités & Événements</a></li> <!-- AJOUT DE class="active" ICI -->
+            <li><a href="index.html#formations">Nos Formations</a></li>
+            <li><a href="index.html#recherche">Recherche & Innovation</a></li>
+            <li><a href="index.html#calendrier">Calendrier Académique</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </nav>
+        <button class="nav-toggle" aria-label="Toggle navigation">
+          <span class="hamburger"></span>
+        </button>
+      </div>
+    </header>
+
+  <main>
+    <section class="detail-hero" style="background-image: url('image/estba_hero_placeholder.jpg');">
+      <div class="container">
+        <h1>James Party : Une Célébration Mémorable à l'ESTBA</h1>
+        <p class="news-date">27 Février 2026</p>
+      </div>
+    </section>
+
+    <section class="news-detail-content">
+      <div class="container">
+        <div class="detail-text">
+          
+          <img src="ambi.jpg" alt="Ambiance de la James Party" class="detail-image">
+          <p>⛱️🏖️*Détente ESTBA*🏖️🏖️🏖️
+Une sortie avec l'accompagnement du prof KANDONOU. Wow des jeux🎮🎮, baignade🏊👙 et fou rire nous attendent ce 27/02. Une surprise 🎁 attend les 20 première personne qui vont s'inscrire😅😅. Les frais de participation sont seulement à *3500fcfa* 💵💸.
+*On ne tente pas le diable👿😈* 🔥🔥🔥🔥
+          </p>
+          <a href="index.html#actus" class="btn btn-primary back-button">
+            <i class="fas fa-arrow-left"></i> Retour a l'accuei
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="main-footer">
+    <div class="container">
+      <p>&copy; 2026 ESTBA - Université de Lomé. Tous droits réservés.</p>
+      <div class="social-links">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Intégration de ScrollReveal (si tu veux des animations sur la page de détail) -->
+  <script src="https://unpkg.com/scrollreveal"></script>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,4 +1,23 @@
 document.addEventListener('DOMContentLoaded', function() {
+        // LOGIQUE DU PRELOADER
+    const preloader = document.getElementById('preloader');
+    const body = document.body;
+
+    // Masque le préchargeur et affiche le contenu après un délai
+    setTimeout(() => {
+        if (preloader) {
+            preloader.classList.add('hidden'); // Anime la disparition du préchargeur
+            preloader.addEventListener('transitionend', function() {
+                // S'assure que le préchargeur est complètement caché après la transition
+                preloader.style.display = 'none';
+                body.classList.remove('loading'); // Retire la classe loading pour afficher le contenu
+            }, { once: true }); // S'exécute une seule fois
+        } else {
+            // Fallback si le preloader n'existe pas ou JS est trop lent
+            body.classList.remove('loading');
+        }
+    }, 2500); // Durée de l'animation en ms (ici 2.5 secondes)
+              // Ajuste ce délai en fonction de la durée de ton animation CSS
     const navToggle = document.querySelector('.nav-toggle');
     const mainNav = document.querySelector('.main-nav');
     // On sélectionne maintenant tous les liens à l'intérieur du menu de navigation

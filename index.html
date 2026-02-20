@@ -10,7 +10,109 @@
      <link rel="icon" href="favicon.ico" type="image/x-icon">
     <!-- Si ton favicon est un PNG, utilise : <link rel="icon" href="favicon.png" type="image/png"> -->
   <style>
-                
+                 /* Masque le contenu du body pendant le chargement */
+    body.loading {
+        overflow: hidden; /* Empêche le défilement */
+    }
+
+    body.loading > *:not(#preloader) {
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    /* Styles du Preloader */
+    #preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--light-color); /* Couleur de fond du préchargeur */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999; /* S'assure qu'il est au-dessus de tout */
+        opacity: 1;
+        visibility: visible;
+        transition: opacity 1s ease-out, visibility 1s ease-out; /* Animation de disparition */
+    }
+
+    #preloader.hidden {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .estba-letters {
+        display: flex;
+        font-family: 'Oswald', sans-serif;
+        font-size: 5rem; /* Ajuste la taille si tu veux */
+        font-weight: 700;
+        color: var(--primary-color); /* Couleur du texte ESTBA */
+    }
+
+    .estba-letters .letter {
+        opacity: 0;
+        transform: translateY(20px) scale(0.8);
+        animation: letterAppear 0.8s forwards;
+        position: relative;
+        margin: 0 -5px; /* Rapproche les lettres */
+    }
+
+    /* Délai d'apparition pour chaque lettre */
+    .estba-letters .e { animation-delay: 0.1s; }
+    .estba-letters .s { animation-delay: 0.2s; }
+    .estba-letters .t { animation-delay: 0.3s; }
+    .estba-letters .b { animation-delay: 0.4s; }
+    .estba-letters .a { animation-delay: 0.5s; }
+
+    /* Animation de l'apparition des lettres */
+    @keyframes letterAppear {
+        0% { opacity: 0; transform: translateY(20px) scale(0.8); }
+        50% { opacity: 1; transform: translateY(0) scale(1.1); } /* Léger rebond */
+        100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Animation des lignes de connexion entre les lettres */
+    .estba-letters .letter::after {
+        content: '';
+        position: absolute;
+        bottom: -5px; /* Position de la ligne */
+        left: 50%;
+        transform: translateX(-50%) scaleX(0);
+        width: 100%;
+        height: 2px;
+        background-color: var(--secondary-color); /* Couleur de la ligne */
+        animation: lineConnect 0.5s forwards;
+        animation-delay: calc(var(--letter-delay) + 0.6s); /* Commence après l'apparition de la lettre */
+    }
+
+    /* Définit un délai personnalisé pour chaque ligne */
+    .estba-letters .e::after { --letter-delay: 0.1s; }
+    .estba-letters .s::after { --letter-delay: 0.2s; }
+    .estba-letters .t::after { --letter-delay: 0.3s; }
+    .estba-letters .b::after { --letter-delay: 0.4s; }
+    .estba-letters .a::after { --letter-delay: 0.5s; } /* La dernière lettre peut avoir une ligne qui apparaît brièvement si tu veux */
+
+    @keyframes lineConnect {
+        0% { transform: translateX(-50%) scaleX(0); }
+        100% { transform: translateX(-50%) scaleX(1); }
+    }
+
+    /* MEDIA QUERIES pour ajuster la taille des lettres sur mobile */
+    @media (max-width: 768px) {
+        .estba-letters {
+            font-size: 3.5rem;
+        }
+        .estba-letters .letter {
+            margin: 0 -3px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .estba-letters {
+            font-size: 2.5rem;
+        }
+    }   
        body.no-scroll {
         overflow: hidden;
     }

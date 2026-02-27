@@ -3,87 +3,82 @@
 <head>
   <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
   <title>Semaine de l'étudiant</title>
-  
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
-  <!-- Nouveau CSS créé spécifiquement pour ta page "Semaine de l'étudiant" -->
+  <!-- CSS intégré -->
   <style>
     body {
-      font-family: 'PT Serif', serif; /* Utilise une de tes polices importées */
       margin: 0;
       padding: 20px;
-      background-color: #f4f4f4; /* Un fond léger */
-      color: #333;
-      line-height: 1.6;
-      max-width: 800px; /* Limite la largeur du contenu pour une meilleure lecture */
-      margin-left: auto;
-      margin-right: auto;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Petite ombre pour donner du relief */
-      background-color: #fff;
-      border-radius: 8px;
+      font-family: 'PT Serif', serif;
+      background-color: #f5f5f5;
+      color: #222;
+      line-height: 1.7;
+      text-align: center;
     }
 
-    .sele { /* Style pour ton image */
-      display: block; /* Pour centrer l'image */
-      margin: 0 auto 30px auto; /* Centre et ajoute un espace en bas */
-      max-width: 100%; /* S'assure que l'image ne dépasse pas la largeur de la page */
-      height: auto; /* Maintient les proportions de l'image */
-      border-radius: 8px; /* Bords légèrement arrondis */
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* Ombre pour l'image */
-    }
-
-    .dit { /* Style pour ton paragraphe de texte */
-      font-size: 1.1em; /* Taille de police légèrement plus grande */
-      color: #555;
+    h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 2.5rem;
       margin-bottom: 20px;
-      text-align: justify; /* Justifie le texte */
+      color: #1a1a1a;
     }
 
-    .dit span { /* Style pour la première partie en gras */
+    .sele {
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      border-radius: 10px;
+      margin: 20px 0;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .dit {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      text-align: justify;
+      font-size: 1.05rem;
+    }
+
+    .dit span {
       font-weight: bold;
-      color: #007bff; /* Met un peu de couleur sur l'info importante */
-    }
-    
-    /* Pour les puces 🔥, 📢, 💡 - on les met un peu en valeur */
-    .dit p strong {
-        color: #e74c3c; /* Rouge pour le 🔥 par exemple */
-    }
-    .dit p em {
-        color: #28a745; /* Vert pour le 📢 */
-    }
-    .dit p u {
-        color: #ffc107; /* Jaune pour le 💡 */
+      font-size: 1.15rem;
     }
 
-    /* Un peu de style pour les sauts de ligne si tu veux qu'ils soient plus visibles */
-    .dit br + br + br {
-      margin-top: 1em; /* Ajoute un peu plus d'espace après trois <br> consécutifs */
-      display: block; /* Permet d'appliquer le margin-top */
-    }
-
-    /* Styles responsives de base pour les petits écrans */
-    @media (max-width: 600px) {
-      body {
-        padding: 15px;
-      }
+    @media (max-width: 768px) {
       h1 {
-        font-size: 2em;
+        font-size: 2rem;
       }
+
       .dit {
-        font-size: 1em;
+        padding: 18px;
+        font-size: 1rem;
       }
     }
   </style>
 </head>
-<body>
-  
-  <img class="sele" src="sele.jpg" alt="semaine de l'étudiant affiche">
-  <p class="dit"><span>Du 09au 15 mars 2026, l’Université de Lomé se transformera en un véritable carrefour d’échanges et d’animations à l’occasion des  JoCUL.</span><br> <br> <br> Une semaine de découvertes, de culture et d’opportunités vous attend !
-  Au programme : une gigantesque foire kermesse, des spectacles captivants, des conférences enrichissantes et bien plus encore !  
 
-🔥 Vous êtes une entreprise, une marque ou une institution ?
+<body>
+  <h1>
+    Bonjour très cher Estébistes
+  </h1>
+
+  <img class="sele" src="sele.jpg" alt="semaine de l'étudiant affiche">
+
+  <p class="dit">
+    <span>Du 09au 15 mars 2026, l’Université de Lomé se transformera en un véritable carrefour d’échanges et d’animations à l’occasion des  JoCUL.</span><br><br><br>
+    Une semaine de découvertes, de culture et d’opportunités vous attend !
+    Au programme : une gigantesque foire kermesse, des spectacles captivants, des conférences enrichissantes et bien plus encore !  
+
+🔥 Vous êtes une entreprise, une marque ou une institution ?*  
 C’est l’occasion rêvée d’accroître votre visibilité, de toucher un large public jeune et dynamique, et de vous associer à un événement phare de la vie estudiantine.  
 
 📢 Devenez partenaire ou sponsor et faites partie de l’aventure !
@@ -91,7 +86,8 @@ En rejoignant cet événement, vous bénéficierez d’une exposition exceptionn
 
 💡 Ne manquez pas cette opportunité !
 
-🔥Rejoignez-nous et faites partie de ceux qui œuvrent pour la préservation de notre patrimoine culturel au sein de l’Université</p>
+🔥Rejoignez-nous et faites partie de ceux qui œuvrent pour la préservation de notre patrimoine culturel au sein de l’Unive
+  </p>
   <img  class="sele" src="sélé.jpg" alt="stands">
   <p class="dit"> 🎉 
 À cette occasion, nous lançons officiellement les **offres de stands** pour tous ceux qui souhaitent exposer, vendre ou promouvoir leurs activités pendant l’événement.
